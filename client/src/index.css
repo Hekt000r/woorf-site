@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .upload-title {
+      @apply text-2xl font-semibold 
+    }
+    .upload-tags{
+        @apply text-gray-400 text-sm
+    }
+    
+  }
+.bup{
+    list-style-type: circle;
+}
