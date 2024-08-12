@@ -89,7 +89,9 @@ app.get('/search', async (req, res) => {
       $project: {
         _id: 0,
         title: 1,
-        content: 1
+        photoURL: 1,
+        tags: 1,
+        downloadURL: 1,
       }
     }
   ]).toArray();
@@ -112,8 +114,7 @@ async function migratePhotoURLs(client) {
       [
         {
           $set: {
-            photoURL: { $ifNull: ["$photoURL", "http://example.com/default-image.jpg"]  },
-            photoURL: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Adobe_Photoshop_CC_icon.svg/1051px-Adobe_Photoshop_CC_icon.svg.png"
+            downloadURL: { $ifNull: ["$downloadURL", "https://drive.filen.io/d/42658e8e-85eb-43d0-90a7-44ac51d73054#5nzNjWegqQZzmecyn8vsMJJ9RaUeKVZU"]  },
           }
         }
       ]

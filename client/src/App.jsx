@@ -26,6 +26,7 @@ function App() {
     if (Array.isArray(response.data)) {
       setResults(response.data);
       console.log(response.data);
+      
     } else {
       console.error("Expected an array, received:", response.data);
       setResults([]); // Fallback to empty array if data is not as expected
@@ -42,18 +43,26 @@ function App() {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <button onClick={performSearch}>Search</button>
-        <div>
+        <div className="shadow-md w-64 h-auto">
           {results.map((result, index) => (
             <div key={index}>
               {" "}
+
               {/* Using index as key; consider using unique IDs if available */}
-              <h3>{result.title || "Title not found"}</h3>{" "}
+              <div className="a inline flex p-1 m-2 shadow-sm rounded-md">
+              <img className="img-sm" src={result.photoURL} alt="" />
+              <h3><a href={result.downloadURL}>{result.title || "Title not found"}</a></h3>{" "}
+              {console.log(result.downloadURL)}
+              </div>
+              
+              {console.log(result.photoURL)}
+              
               {/* Adding fallback for missing titles */}
             </div>
           ))}
         </div>
       </div>
-      <h1 className="a text-7xl text-center">results.</h1>
+      <h1 className="a text-7xl text-center">Latest Repacks</h1>
       <div className="flex justify-center items-center  px-4 py-6">
         {" "}
         {/* Centering and spacing */}

@@ -9,6 +9,9 @@
     .upload-tags{
         @apply text-gray-400 text-sm
     }
+    .img-sm{
+      @apply w-8 object-cover mr-2
+    }
     
   }
 .bup{
