@@ -1,6 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import DownloadPage from "./DownloadPage";
 function SearchComponent() {
   const [uploadsList, setUploads] = useState([]);
 
@@ -51,8 +53,11 @@ function SearchComponent() {
               <div className="a inline flex p-1 m-2 shadow-sm rounded-lg">
                 <img className=" h-8" src={result.photoURL} alt="" />
                 <h3>
-                  <a className="" href={result.downloadURL}>
-                    {result.title || "Title not found"}
+                <Link to={`http://localhost:5173/downloadpage/${result._id}`} >
+                {result.title || "Title not found"}
+                </Link>
+                  <a className="" href={""}>
+                   test1
                   </a>
                 </h3>{" "}
                 {console.log(result.downloadURL)}

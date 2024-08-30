@@ -1,9 +1,15 @@
+// messy ass single file codebase
+// dont even try to tidy up untill project is finished
+
+
+
 const express = require("express");
 const app = express();
 const port = 5172;
 const mongoose = require("mongoose");
 const { MongoClient, ServerApiVersion, Db } = require("mongodb");
 const cors = require("cors");
+const { ObjectId } = require('mongodb');
 app.use(cors());
 const uri =
   "mongodb+srv://hektorzaimidev:8ZRltC9zSKfm9pwc@cluster0.lm0zx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
@@ -86,7 +92,7 @@ app.get("/search", async (req, res) => {
       },
       {
         $project: {
-          _id: 0,
+          _id: 1,
           title: 1,
           photoURL: 1,
           tags: 1,
@@ -129,6 +135,23 @@ app.get("/altsearch", async (req, res) => {
     ])
     .toArray();
     res.json(results)
+});
+app.get('/document/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    console.log(id)
+    
+    const document = await myColl.findOne({ _id: new ObjectId(id) });
+    
+    if (!document) {
+      return res.status(404).json({ message: 'Document not found' });
+    }
+    
+    res.json(document);
+  } catch (error) {
+    console.error('Error fetching document:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
 });
 
 app.use((err, req, res, next) => {

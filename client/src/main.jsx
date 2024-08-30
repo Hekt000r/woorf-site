@@ -7,11 +7,13 @@ import About from './Components/About.jsx';
 import {
   createBrowserRouter,
   RouterProvider,
+  useParams,
 } from "react-router-dom";
 import Navbar from './Components/Navbar.jsx';
 import Altsearch from './Components/Altsearch.jsx';
 import SearchComponent from './Components/searchComponent.jsx';
 import AltSearchComponent from "./Components/AltSearchComponent.jsx";
+import DownloadPage from './Components/DownloadPage.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -32,6 +34,10 @@ const router = createBrowserRouter([
   {
     path: "/searchtest",
     element: <AltSearchComponent/> ,
+  },
+  {
+    path: "/downloadpage/:id",
+    element: <DownloadPage /> ,
   },
 ]);
 createRoot(document.getElementById('root')).render(
