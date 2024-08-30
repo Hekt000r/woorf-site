@@ -1,7 +1,8 @@
 import "./App.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
-
+import Logo from "./assets/woorf-logo.svg?react";
+import SearchComponent from "./Components/searchComponent";
 function App() {
   const [uploadsList, setUploads] = useState([]);
 
@@ -20,13 +21,12 @@ function App() {
 
   const performSearch = async () => {
     const response = await axios.get(
-      `http://localhost:5172/search?term=${searchTerm}`
+      `http://localhost:5172/altsearch?term=${searchTerm}`
     );
     // Check if response.data is an array before setting it to state
     if (Array.isArray(response.data)) {
       setResults(response.data);
       console.log(response.data);
-      
     } else {
       console.error("Expected an array, received:", response.data);
       setResults([]); // Fallback to empty array if data is not as expected
@@ -35,68 +35,21 @@ function App() {
 
   return (
     <>
-      <h1 className="text-green-600 font-semibold">test123</h1>
-      <div>
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <button onClick={performSearch}>Search</button>
-        <div className="shadow-md w-64 h-auto">
-          {results.map((result, index) => (
-            <div key={index}>
-              {" "}
-
-              {/* Using index as key; consider using unique IDs if available */}
-              <div className="a inline flex p-1 m-2 shadow-sm rounded-md">
-              <img className="img-sm" src={result.photoURL} alt="" />
-              <h3><a href={result.downloadURL}>{result.title || "Title not found"}</a></h3>{" "}
-              {console.log(result.downloadURL)}
-              </div>
-              
-              {console.log(result.photoURL)}
-              
-              {/* Adding fallback for missing titles */}
-            </div>
-          ))}
-        </div>
+      <div className="rounded-lg shadow-lg w-[50%] text-center center mb-12 mt-4">
+        <h1 className="a text-5xl m-1 flex justify-center">
+          <Logo></Logo>
+        </h1>
+        All of the best free media, games, and software, including open source in one place! <br />
+        
+        No ads, no wait times, fast hosts, instant downloads,
+        
+        high compression ratios, and portable versions!
+        <br />
+        <a href="" className="btn btn-primary">Learn more</a>
+        <br />
+        <b>*Note: The site is in development*</b>
       </div>
-      <h1 className="a text-7xl text-center">Latest Repacks</h1>
-      <div className="flex justify-center items-center  px-4 py-6">
-        {" "}
-        {/* Centering and spacing */}
-        <div className="flex shadow-2xl rounded-3xl w-[80%] max-w-7xl mx-auto flex-wrap justify-center gap-4">
-          {" "}
-          {/* Container for items */}
-          {uploadsList.map((item, index) => (
-            <div
-              className="flex flex-row items-start space-y-2 w-full md:w-1/3 lg:w-1/4 xl:w-1/5 rounded-lg bg-white p-4 m-4"
-              key={index}
-            >
-              {" "}
-              {/* Item container */}
-              <img
-                className="w-16 object-cover mr-4"
-                src={item.photoURL}
-                alt=""
-              />{" "}
-              {/* Image */}
-              <div>
-                <h2 className="upload-title text-left">{item.title}</h2>{" "}
-                {/* Title */}
-                <ul>
-                  {item.tags.map((tag, tagIndex) => (
-                    <li className="upload-tags" key={tagIndex}>
-                      {tag}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      <SearchComponent/>
     </>
   );
 }
