@@ -4,14 +4,14 @@
 
 ## A website to find all your favourite freeware games, with no ads and instant downloads..
 
-### Features
+# Features
 
-# Alternative Search
+### Alternative Search
 
 Search for alternatives to a paid program using our Alternative Search Feature
-## Fastest instant downloads
+### Fastest instant downloads
 No waiting times, instantly get your file when you click download for your platform
-## (Coming Soon) Game Finder
+### (Coming Soon) Game Finder
 
 Find games based on similarity with others, computer hardware with an automated detection tool, or the best browser games...
 
