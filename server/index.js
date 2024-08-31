@@ -1,18 +1,16 @@
 // messy ass single file codebase
 // dont even try to tidy up untill project is finished
 
-
+require('dotenv').config()
 
 const express = require("express");
 const app = express();
 const port = 5172;
-const mongoose = require("mongoose");
 const { MongoClient, ServerApiVersion, Db } = require("mongodb");
 const cors = require("cors");
 const { ObjectId } = require('mongodb');
 app.use(cors());
-const uri =
-  "mongodb+srv://hektorzaimidev:8ZRltC9zSKfm9pwc@cluster0.lm0zx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const uri = process.env.MONGO_DB_URI;
 
 app.get("/", (req, res) => {
   res.send("Hello World!");

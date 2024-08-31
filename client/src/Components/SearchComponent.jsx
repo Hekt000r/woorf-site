@@ -56,9 +56,7 @@ function SearchComponent() {
                 <Link to={`http://localhost:5173/downloadpage/${result._id}`} >
                 {result.title || "Title not found"}
                 </Link>
-                  <a className="" href={""}>
-                   test1
-                  </a>
+                  
                 </h3>{" "}
                 {console.log(result.downloadURL)}
               </div>
