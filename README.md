@@ -2,7 +2,7 @@
 
 ### a web application built with the MERN stack and React-Router-Dom
 
-## A website to find all your favourite freeware games, with no ads and instant downloads..
+## A website to find all your favourite freeware software and games, with no ads and instant downloads..
 
 # Features
 
