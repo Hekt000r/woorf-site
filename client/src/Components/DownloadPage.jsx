@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { FaLinux } from "react-icons/fa";
+import { FaLinux, FaWindows, FaApple } from "react-icons/fa";
 import DownloadPageContent from "./DownloadPageContent";
 import { useParams } from "react-router-dom";
 
@@ -107,25 +107,29 @@ function DownloadPage() {
             </div>
           </div>
         </div>
+        {program.downloadLinks.map((download, index) => (
+          <div className="btn mt-6 hover:bg-gray-200 flex items-center rounded-lg shadow-md w-[32rem]">
+            <a
+              className="text-gray-400 text-xl"
+              href={program.downloadLinks[index].downloadURL}
+            >
+              Download • {program.downloadLinks[index].Platform} •{" "}
+              {program.downloadLinks[index].Host}{" "}
+              {program.downloadLinks[index].Size}
+            </a>
 
-        <div className="btn mt-6 hover:bg-gray-200  flex items-center  rounded-lg shadow-md w-[32rem] ">
-          <h2> {console.log(program.downloadLinks[0].Platform)}</h2>
-          <a className="text-gray-400 text-xl" href={program.downloadURL}>
-            Download • {program.downloadLinks[0].Platform} •{" "}
-            {program.downloadLinks[0].Host} {program.downloadLinks[0].Size}
-          </a>
-          <img
-            className="w-8 h-8 ml-2"
-            src="https://icones.pro/wp-content/uploads/2021/06/icone-windows-gris.png"
-            alt="WindowsIcon"
-          />
-        </div>
-        <div className="btn mt-6 hover:bg-gray-200  flex items-center  rounded-lg shadow-md w-[32rem] ">
-          <a className="text-gray-400 text-xl" href={program.downloadURL}>
-            Download • Linux • filen.io 528mb
-          </a>
-          <FaLinux className="w-8 h-8" />
-        </div>
+            {program.downloadLinks[index].Platform.toLowerCase() ===
+            "windows" ? (
+              <FaWindows className="w-8 h-8 ml-2" />
+            ) : program.downloadLinks[index].Platform.toLowerCase() ===
+              "linux" ? (
+              <FaLinux className="w-8 h-8 ml-2" />
+            ) : (
+              <FaApple className="w-8 h-8 ml-2" />
+            )}
+          </div>
+        ))}
+
         <div className="mt-8 ml-8">
           <h1 className="text-xl font-bold">Rate this program:</h1>
           <div>
@@ -157,13 +161,12 @@ function DownloadPage() {
                 className="mask mask-star-2 bg-green-500"
               />
             </div>
-           
           </div>
           <input
-              type="button"
-              value="Submit"
-              className="btn btn-xs btn-primary"
-            />
+            type="button"
+            value="Submit"
+            className="btn btn-xs btn-primary"
+          />
         </div>
       </div>
     </>

@@ -169,14 +169,8 @@ async function migrateDocuments(client) {
       [
         {
           $set: {
-            downloadLinks: { // please remember to change this when doing something like are you dumb shhhhh
-              $ifNull: ["$downloadLinks", [{
-                Platform: "None",
-                Host: "None",
-                Size: "0kb",
-                downloadURL: "example.com"
-
-              }]],
+            category: { // please remember to change this when doing something like are you dumb shhhhh
+              $ifNull: ["$category", "None"],
             },
           },
         },
