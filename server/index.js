@@ -134,8 +134,33 @@ app.get("/altsearch", async (req, res) => {
     ])
     .toArray();
 
-  console.log(results)
+  console.log(results);
   res.json(results);
+});
+app.get("/getCategories", async (req, res) => {
+  try {
+    const udColl = myDB.collection("Unordered Data");
+    // TODO: Remove current solution and figure out how to use findOne()
+    let categories = []
+    // Debug
+    // const udDOCS = await udColl.find().toArray();
+    // console.log(udDOCS);
+
+    // Secondary Solution (Temporary)
+    let i = 0;
+
+    while (i < udDOCS.length) {
+      console.log(udDOCS[i].DataName);
+      if (udDOCS[i].DataName === "Categories") {
+        categories = udDOCS[i].Data
+      }
+      i++;
+    }
+    res.json(categories);
+  } catch (error) {
+    console.error("Failed to get categories:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 });
 app.get("/document/:id", async (req, res) => {
   try {
@@ -169,7 +194,8 @@ async function migrateDocuments(client) {
       [
         {
           $set: {
-            category: { // please remember to change this when doing something like are you dumb shhhhh
+            category: {
+              // please remember to change this when doing something like are you dumb shhhhh
               $ifNull: ["$category", "None"],
             },
           },
@@ -181,4 +207,3 @@ async function migrateDocuments(client) {
     console.error(error);
   }
 } // Migration function, used for migrating old documents into new ones
-

@@ -1,10 +1,11 @@
 import "./App.css";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Logo from "./assets/woorf-logo.svg?react";
-import SearchComponent from "./Components/searchComponent";
+import SearchComponent from "./Components/SearchComponent";
 function App() {
   const [uploadsList, setUploads] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     axios
@@ -16,9 +17,19 @@ function App() {
         console.log(error);
       });
   }, []);
+  useEffect(() => {
+    axios.get("http://localhost:5172/getCategories").then(function (response) {
+      setCategories(response.data);
+    });
+  }, []);
   const [searchTerm, setSearchTerm] = useState("");
   const [results, setResults] = useState([]);
 
+  const filteredUploadsList = useMemo(() => {
+    return uploadsList.filter(
+      (upload) => upload.category.toLowerCase() === "art and design"
+    );
+  }, [uploadsList]);
   const performSearch = async () => {
     const response = await axios.get(
       `http://localhost:5172/altsearch?term=${searchTerm}`
@@ -39,17 +50,39 @@ function App() {
         <h1 className="a text-5xl m-1 flex justify-center">
           <Logo></Logo>
         </h1>
-        All of the best free media, games, and software, including open source in one place! <br />
-        
-        No ads, no wait times, fast hosts, instant downloads,
-        
-        high compression ratios, and portable versions!
+        All of the best free media, games, and software, including open source
+        in one place! <br />
+        No ads, no wait times, fast hosts, instant downloads, high compression
+        ratios, and portable versions!
         <br />
-        <a href="" className="btn btn-primary">Learn more</a>
+        <a href="" className="btn btn-primary">
+          Learn more
+        </a>
         <br />
         <b>*Note: The site is in development*</b>
       </div>
-      <SearchComponent/>
+      <SearchComponent />
+      {categories.map((category, index) => (
+        <div>
+          {<h1 className="text-center text-6xl mt-24 mb-4">{category}</h1>}
+          <div className="shadow-md rounded-xl p-4 flex justify-center">
+            {uploadsList.map((upload, index) =>
+              upload.category.toLowerCase() === category.toLowerCase() ? (
+                <div
+                  key={index}
+                  className="shadow-md rounded-xl h-32 p-1 mr-12 w-72 flex"
+                >
+                  <img className="h-20 mt-6" src={upload.photoURL} alt="" />
+                  <h1 className="text-xl ml-2 mt-2">{upload.title}</h1>
+                </div>
+              ) : null
+            )}
+          </div>
+        </div>
+      ))}
+      <div></div>
+      {console.log(categories)}
+      <h1 className="mt-64">test {categories[1]}</h1>
     </>
   );
 }

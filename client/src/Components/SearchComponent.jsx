@@ -39,6 +39,11 @@ function SearchComponent() {
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              performSearch(e.target.value);
+            }
+          }}
           className="input w-64  input-ghost input-bordered max-w-xs bg-white text-black"
         />
         <button className="btn btn-ghost border mb-1" onClick={performSearch}>
@@ -53,10 +58,9 @@ function SearchComponent() {
               <div className="a inline flex p-1 m-2 shadow-sm rounded-lg">
                 <img className=" h-8" src={result.photoURL} alt="" />
                 <h3>
-                <Link to={`http://localhost:5173/downloadpage/${result._id}`} >
-                {result.title || "Title not found"}
-                </Link>
-                  
+                  <Link to={`http://localhost:5173/downloadpage/${result._id}`}>
+                    {result.title || "Title not found"}
+                  </Link>
                 </h3>{" "}
                 {console.log(result.downloadURL)}
               </div>
