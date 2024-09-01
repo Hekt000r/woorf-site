@@ -1,14 +1,14 @@
 // messy ass single file codebase
 // dont even try to tidy up untill project is finished
 
-require('dotenv').config()
+require("dotenv").config();
 
 const express = require("express");
 const app = express();
 const port = 5172;
 const { MongoClient, ServerApiVersion, Db } = require("mongodb");
 const cors = require("cors");
-const { ObjectId } = require('mongodb');
+const { ObjectId } = require("mongodb");
 app.use(cors());
 const uri = process.env.MONGO_DB_URI;
 
@@ -70,7 +70,7 @@ app.get("/getDocs", async (req, res) => {
 });
 app.get("/search", async (req, res) => {
   const searchTerm = req.query.term;
-  console.warn("NORMAL SEARCH!!!!!!!!!!!!!!!")
+  console.warn("NORMAL SEARCH!!!!!!!!!!!!!!!");
   const results = await myColl
     .aggregate([
       {
@@ -104,7 +104,7 @@ app.get("/search", async (req, res) => {
 });
 app.get("/altsearch", async (req, res) => {
   const searchTerm = req.query.term;
-  console.warn("Alternative Search")
+  console.warn("NORMAL SEARCH!!!!!!!!!!!!!!!");
   const results = await myColl
     .aggregate([
       {
@@ -124,31 +124,34 @@ app.get("/altsearch", async (req, res) => {
       },
       {
         $project: {
-          _id: 0,
+          _id: 1,
           title: 1,
-          alternativeTo: 1,
-          photoURL: 1
+          photoURL: 1,
+          tags: 1,
+          downloadURL: 1,
         },
       },
     ])
     .toArray();
-    res.json(results)
+
+  console.log(results)
+  res.json(results);
 });
-app.get('/document/:id', async (req, res) => {
+app.get("/document/:id", async (req, res) => {
   try {
     const id = req.params.id;
-    console.log(id)
-    
+    console.log(id);
+
     const document = await myColl.findOne({ _id: new ObjectId(id) });
-    
+
     if (!document) {
-      return res.status(404).json({ message: 'Document not found' });
+      return res.status(404).json({ message: "Document not found" });
     }
-    
+
     res.json(document);
   } catch (error) {
-    console.error('Error fetching document:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    console.error("Error fetching document:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 });
 
@@ -156,7 +159,7 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Something broke!");
 });
-async function migratePhotoURLs(client) {
+async function migrateDocuments(client) {
   const db = client.db("woorf-db1");
   const collection = db.collection("Uploads");
 
@@ -166,11 +169,14 @@ async function migratePhotoURLs(client) {
       [
         {
           $set: {
-            alternativeTo: {
-              $ifNull: [
-                "$alternativeTo",
-                ["none"],
-              ],
+            downloadLinks: { // please remember to change this when doing something like are you dumb shhhhh
+              $ifNull: ["$downloadLinks", [{
+                Platform: "None",
+                Host: "None",
+                Size: "0kb",
+                downloadURL: "example.com"
+
+              }]],
             },
           },
         },
@@ -181,3 +187,4 @@ async function migratePhotoURLs(client) {
     console.error(error);
   }
 } // Migration function, used for migrating old documents into new ones
+

@@ -99,14 +99,20 @@ function DownloadPage() {
                     <p>No tags available</p>
                   )}
                 </div>
+
+                <div>
+                  <p className="w-[600px]">{program.description}</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
         <div className="btn mt-6 hover:bg-gray-200  flex items-center  rounded-lg shadow-md w-[32rem] ">
+          <h2> {console.log(program.downloadLinks[0].Platform)}</h2>
           <a className="text-gray-400 text-xl" href={program.downloadURL}>
-            Download • Windows • filen.io 374mb
+            Download • {program.downloadLinks[0].Platform} •{" "}
+            {program.downloadLinks[0].Host} {program.downloadLinks[0].Size}
           </a>
           <img
             className="w-8 h-8 ml-2"
@@ -119,6 +125,45 @@ function DownloadPage() {
             Download • Linux • filen.io 528mb
           </a>
           <FaLinux className="w-8 h-8" />
+        </div>
+        <div className="mt-8 ml-8">
+          <h1 className="text-xl font-bold">Rate this program:</h1>
+          <div>
+            <div className="rating mt-2">
+              <input
+                type="radio"
+                name="rating-4"
+                className="mask mask-star-2 bg-green-500"
+              />
+              <input
+                type="radio"
+                name="rating-4"
+                className="mask mask-star-2 bg-green-500"
+                defaultChecked
+              />
+              <input
+                type="radio"
+                name="rating-4"
+                className="mask mask-star-2 bg-green-500"
+              />
+              <input
+                type="radio"
+                name="rating-4"
+                className="mask mask-star-2 bg-green-500"
+              />
+              <input
+                type="radio"
+                name="rating-4"
+                className="mask mask-star-2 bg-green-500"
+              />
+            </div>
+           
+          </div>
+          <input
+              type="button"
+              value="Submit"
+              className="btn btn-xs btn-primary"
+            />
         </div>
       </div>
     </>

@@ -1,7 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-function SearchComponent() {
+import { Link } from "react-router-dom";
+import DownloadPage from "./DownloadPage";
+function AltSearchComponent() {
   const [uploadsList, setUploads] = useState([]);
 
   useEffect(() => {
@@ -20,14 +22,17 @@ function SearchComponent() {
   const performSearch = async () => {
     const response = await axios.get(
       `http://localhost:5172/altsearch?term=${searchTerm}`
+      
     );
     // Check if response.data is an array before setting it to state
     if (Array.isArray(response.data)) {
       setResults(response.data);
       console.log(response.data);
+      
     } else {
       console.error("Expected an array, received:", response.data);
       setResults([]); // Fallback to empty array if data is not as expected
+      alert("Death")
     }
   };
   return (
@@ -48,12 +53,14 @@ function SearchComponent() {
             <div key={index}>
               {" "}
               {/* Using index as key; consider using unique IDs if available */}
-              <div className="a  inline flex p-1 m-2 shadow-sm rounded-lg">
-                <img className="h-10" src={result.photoURL} alt="" />
-                <h3 className="text-xl ml-1">
-                  <a href={result.downloadURL}>
-                    {result.title || "Title not found"}
-                  </a>
+              <div className="a inline flex p-1 m-2 shadow-sm rounded-lg">
+                <img className=" h-8" src={result.photoURL} alt="" />
+                <h3>
+                <Link to={`http://localhost:5173/downloadpage/${result._id}`} >
+                {alert(result._id)}
+                {result.title || "Title not found"}
+                </Link>
+                  
                 </h3>{" "}
                 {console.log(result.downloadURL)}
               </div>
@@ -67,4 +74,4 @@ function SearchComponent() {
   );
 }
 
-export default SearchComponent;
+export default AltSearchComponent;
