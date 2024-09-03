@@ -11,9 +11,10 @@ import {
 } from "react-router-dom";
 import Navbar from './Components/Navbar.jsx';
 import Altsearch from './Components/Altsearch.jsx';
-import SearchComponent from './Components/searchComponent.jsx';
+
 import AltSearchComponent from "./Components/AltSearchComponent.jsx";
 import DownloadPage from './Components/DownloadPage.jsx';
+import HelpPage from './Components/helppage.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
   {
     path: "/downloadpage/:id",
     element: <DownloadPage /> ,
+  },
+  {
+    path: "/help",
+    element: <HelpPage/> ,
   },
 ]);
 createRoot(document.getElementById('root')).render(

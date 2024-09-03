@@ -41,9 +41,20 @@ function DownloadPage() {
       <div className="mt-24 shadow-md m-12 rounded-3xl p-8">
         <div className="flex">
           <div className="flex flex-col justify-center">
+            <div className="breadcrumbs text-sm shadow-md rounded-lg p-2 max-w-96 mb-12 flex justify-center">
+              <ul>
+                <li>
+                  <a>Programs</a>
+                </li>
+                <li>
+                  <a>{program.category}</a>
+                </li>
+                <li>{program.title}</li>
+              </ul>
+            </div>
             <div className="flex">
               <img
-                className="w-32 h-32 shadow-md rounded-3xl mr-6"
+                className=" h-32 shadow-md rounded-3xl mr-6"
                 src={program.photoURL}
                 alt={program.title}
               />
@@ -108,7 +119,7 @@ function DownloadPage() {
           </div>
         </div>
         {program.downloadLinks.map((download, index) => (
-          <div className="btn mt-6 hover:bg-gray-200 flex items-center rounded-lg shadow-md w-[32rem]">
+          <div className="btn mt-6 hover:bg-gray-200 flex-row ml-12 items-center rounded-lg shadow-md w-[34rem]">
             <a
               className="text-gray-400 text-xl"
               href={program.downloadLinks[index].downloadURL}
@@ -129,6 +140,11 @@ function DownloadPage() {
             )}
           </div>
         ))}
+
+       <div className="flex justify-center mt-12 pl-4 mr-[7rem]">
+        <a href="/help" className="btn btn-primary">i don't know which download to choose</a>
+
+       </div>
 
         <div className="mt-8 ml-8">
           <h1 className="text-xl font-bold">Rate this program:</h1>

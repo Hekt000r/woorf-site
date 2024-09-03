@@ -129,6 +129,7 @@ app.get("/altsearch", async (req, res) => {
           photoURL: 1,
           tags: 1,
           downloadURL: 1,
+          flashDescription: 1,
         },
       },
     ])
@@ -143,12 +144,12 @@ app.get("/getCategories", async (req, res) => {
     // TODO: Remove current solution and figure out how to use findOne()
     let categories = []
     // Debug
-    // const udDOCS = await udColl.find().toArray();
+     
     // console.log(udDOCS);
 
     // Secondary Solution (Temporary)
     let i = 0;
-
+    const udDOCS = await udColl.find().toArray();
     while (i < udDOCS.length) {
       console.log(udDOCS[i].DataName);
       if (udDOCS[i].DataName === "Categories") {
