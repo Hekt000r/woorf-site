@@ -4,7 +4,7 @@ import axios from "axios";
 import { FaLinux, FaWindows, FaApple } from "react-icons/fa";
 import DownloadPageContent from "./DownloadPageContent";
 import { useParams } from "react-router-dom";
-
+import { GrSystem } from "react-icons/gr";
 function DownloadPage() {
   const params = useParams();
   const [program, setProgram] = useState(null);
@@ -129,22 +129,25 @@ function DownloadPage() {
               {program.downloadLinks[index].Size}
             </a>
 
-            {program.downloadLinks[index].Platform.toLowerCase() ===
-            "windows" ? (
+            {program.downloadLinks[index].Platform.toLowerCase() === "windows" ? (
               <FaWindows className="w-8 h-8 ml-2" />
-            ) : program.downloadLinks[index].Platform.toLowerCase() ===
-              "linux" ? (
+            ) : program.downloadLinks[index].Platform.toLowerCase() === "linux" ? (
               <FaLinux className="w-8 h-8 ml-2" />
-            ) : (
+            ) : program.downloadLinks[index].Platform.toLowerCase() ===
+              "macos" ? (
               <FaApple className="w-8 h-8 ml-2" />
+            ) : (
+              <GrSystem className="w-8 h-8 ml-2" />
             )}
+
           </div>
         ))}
 
-       <div className="flex justify-center mt-12 pl-4 mr-[7rem]">
-        <a href="/help" className="btn btn-primary">i don't know which download to choose</a>
-
-       </div>
+        <div className="flex justify-center mt-12 pl-4 mr-[7rem]">
+          <a href="/help/1" className="btn btn-primary">
+            i don't know which download to choose
+          </a>
+        </div>
 
         <div className="mt-8 ml-8">
           <h1 className="text-xl font-bold">Rate this program:</h1>

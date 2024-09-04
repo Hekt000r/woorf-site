@@ -41,9 +41,10 @@ const router = createBrowserRouter([
     element: <DownloadPage /> ,
   },
   {
-    path: "/help",
+    path: "/help/:id",
     element: <HelpPage/> ,
   },
+
 ]);
 createRoot(document.getElementById('root')).render(
   <StrictMode>
