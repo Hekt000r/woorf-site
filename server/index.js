@@ -138,6 +138,21 @@ app.get("/altsearch", async (req, res) => {
   console.log(results);
   res.json(results);
 });
+app.get("/login", async (req,res) => { // Temporary Authentication, use third party for this later on
+  
+  const enteredPassword = req.query.password
+  const password = process.env.CLIENT_PASSWORD
+  if (enteredPassword.toLowerCase() == password.toLowerCase()) {
+    res.status(200).json({message: "Successfully authenticated"})
+    console.log("your'e authenticated lol")
+  } else {
+    res.status(401).json({message: "Incorrect password, failed to authenticate"})
+    console.log("idiot")
+    console.log(password)
+    console.log(enteredPassword)
+  }
+  
+})
 app.get("/getCategories", async (req, res) => {
   try {
     const udColl = myDB.collection("Unordered Data");

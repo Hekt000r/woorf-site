@@ -15,6 +15,7 @@ import Altsearch from './Components/Altsearch.jsx';
 import AltSearchComponent from "./Components/AltSearchComponent.jsx";
 import DownloadPage from './Components/DownloadPage.jsx';
 import HelpPage from './Components/helppage.jsx';
+import AdminPanel from './Components/AdminPanel.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
   {
     path: "/help/:id",
     element: <HelpPage/> ,
+  },
+  {
+    path: "/adminpanel",
+    element: <AdminPanel/> ,
   },
 
 ]);
