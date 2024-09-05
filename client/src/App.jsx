@@ -10,7 +10,7 @@ function App() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5172/getDocs")
+      .get("/api/getDocs")
       .then(function (response) {
         setUploads(response.data);
       })
@@ -19,8 +19,9 @@ function App() {
       });
   }, []);
   useEffect(() => {
-    axios.get("http://localhost:5172/getCategories").then(function (response) {
+    axios.get("/api/getCategories").then(function (response) {
       setCategories(response.data);
+      console.log(response.data)
     });
   }, []);
   const [searchTerm, setSearchTerm] = useState("");
@@ -35,9 +36,11 @@ function App() {
     const response = await axios.get(
       `/api/altsearch?term=${searchTerm}`
     );
+    
     // Check if response.data is an array before setting it to state
     if (Array.isArray(response.data)) {
       setResults(response.data);
+      console.log(response.data);
       console.log(response.data);
     } else {
       console.error("Expected an array, received:", response.data);
@@ -115,7 +118,7 @@ function App() {
                       <br />
                       <Link
                         className="btn btn-xs btn-primary"
-                        to={`http://localhost:5173/downloadpage/${upload._id}`}
+                        to={`http://localhost:5172/downloadpage/${upload._id}`}
                       >
                         See more
                       </Link>

@@ -14,7 +14,7 @@ function AdminPanel() {
   const [debugData, setDebugData] = useState([]);
   const authenticate = async (psswrd) => {
     const response = await axios.get(
-      `http://localhost:5172/login?password=${psswrd}`
+      `/api/login?password=${psswrd}`
     );
     if (response.status == 200) {
       setAuth(true);

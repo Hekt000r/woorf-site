@@ -1,36 +1,52 @@
-// messy ass single file codebase
-// dont even try to tidy up untill project is finished
-
 require("dotenv").config();
 
 const express = require("express");
 const app = express();
-const port = 5173;
-const path = require("path")
+const port = 5172;
+const path = require("path");
 const { MongoClient, ServerApiVersion, Db } = require("mongodb");
 const cors = require("cors");
 const { ObjectId } = require("mongodb");
 app.use(cors());
 const uri = process.env.MONGO_DB_URI;
 
-app.use(express.static(path.join(__dirname, '../client/dist')));
+app.use(express.static(path.join(__dirname, "../client/dist")));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+// client side routing
+
+const { createProxyMiddleware } = require("http-proxy-middleware");
+
+module.exports = function (app) {
+  app.use(
+    "/api",
+    createProxyMiddleware({
+      target: "http://localhost:5172", // Your backend server URL
+      changeOrigin: true,
+      pathRewrite: {
+        "^/api": "", // remove base path
+      },
+    })
+  );
+};
+
+app.get("/about", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+});
+app.get("/altsearch", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+});
+
+app.get("/downloadpage/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
 });
 
 app.use((req, res, next) => {
-  if (req.path.includes('.css')) {
+  if (req.path.includes(".css")) {
     res.set("Content-Type", "text/css");
   }
   next();
 });
-app.use(cors)
-
-
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+app.use(cors());
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
@@ -62,7 +78,7 @@ run().catch(console.dir);
 const myDB = client.db("woorf-db1"); // Connect to db1
 const myColl = myDB.collection("Uploads");
 
-app.get("/getDoc", (req, res) => {
+app.get("/api/getDoc", (req, res) => {
   const doc = {
     title: "Test2",
     tags: ["Art and design", "Video editing", "Adobe"],
@@ -73,7 +89,7 @@ app.get("/getDoc", (req, res) => {
   res.send(doc);
 });
 
-app.get("/getDocs", async (req, res) => {
+app.get("/api/getDocs", async (req, res) => {
   try {
     console.log("Fetching documents...");
     const docs = await myColl.find().toArray();
@@ -84,7 +100,7 @@ app.get("/getDocs", async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
-app.get("/search", async (req, res) => {
+app.get("/api/search", async (req, res) => {
   const searchTerm = req.query.term;
   console.warn("NORMAL SEARCH!!!!!!!!!!!!!!!");
   const results = await myColl
@@ -118,7 +134,7 @@ app.get("/search", async (req, res) => {
 
   res.json(results);
 });
-app.get("/altsearch", async (req, res) => {
+app.get("/api/altsearch", async (req, res) => {
   const searchTerm = req.query.term;
   console.warn("NORMAL SEARCH!!!!!!!!!!!!!!!");
   const results = await myColl
@@ -154,28 +170,30 @@ app.get("/altsearch", async (req, res) => {
   console.log(results);
   res.json(results);
 });
-app.get("/login", async (req,res) => { // Temporary Authentication, use third party for this later on
-  
-  const enteredPassword = req.query.password
-  const password = process.env.CLIENT_PASSWORD
+app.get("/login", async (req, res) => {
+  // Temporary Authentication, use third party for this later on
+
+  const enteredPassword = req.query.password;
+  const password = process.env.CLIENT_PASSWORD;
   if (enteredPassword.toLowerCase() == password.toLowerCase()) {
-    res.status(200).json({message: "Successfully authenticated"})
-    console.log("your'e authenticated lol")
+    res.status(200).json({ message: "Successfully authenticated" });
+    console.log("your'e authenticated lol");
   } else {
-    res.status(401).json({message: "Incorrect password, failed to authenticate"})
-    console.log("idiot")
-    console.log(password)
-    console.log(enteredPassword)
+    res
+      .status(401)
+      .json({ message: "Incorrect password, failed to authenticate" });
+    console.log("idiot");
+    console.log(password);
+    console.log(enteredPassword);
   }
-  
-})
-app.get("/getCategories", async (req, res) => {
+});
+app.get("/api/getCategories", async (req, res) => {
   try {
     const udColl = myDB.collection("Unordered Data");
     // TODO: Remove current solution and figure out how to use findOne()
-    let categories = []
+    let categories = [];
     // Debug
-     
+
     // console.log(udDOCS);
 
     // Secondary Solution (Temporary)
@@ -184,7 +202,7 @@ app.get("/getCategories", async (req, res) => {
     while (i < udDOCS.length) {
       console.log(udDOCS[i].DataName);
       if (udDOCS[i].DataName === "Categories") {
-        categories = udDOCS[i].Data
+        categories = udDOCS[i].Data;
       }
       i++;
     }
@@ -194,7 +212,7 @@ app.get("/getCategories", async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
-app.get("/document/:id", async (req, res) => {
+app.get("/api/document/:id", async (req, res) => {
   try {
     const id = req.params.id;
     console.log(id);
@@ -227,7 +245,6 @@ async function migrateDocuments(client) {
         {
           $set: {
             category: {
-              // please remember to change this when doing something like are you dumb shhhhh
               $ifNull: ["$category", "None"],
             },
           },

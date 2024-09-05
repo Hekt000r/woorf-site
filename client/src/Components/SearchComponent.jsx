@@ -8,7 +8,7 @@ function SearchComponent() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5172/getDocs")
+      .get("/api/getDocs")
       .then(function (response) {
         setUploads(response.data);
       })
@@ -58,7 +58,7 @@ function SearchComponent() {
               <div className="a inline flex p-1 m-2 shadow-sm rounded-lg">
                 <img className=" h-8" src={result.photoURL} alt="" />
                 <h3>
-                  <Link to={`http://localhost:5173/downloadpage/${result._id}`}>
+                  <Link to={`http://localhost:5172/downloadpage/${result._id}`}>
                     {result.title || "Title not found"}
                   </Link>
                 </h3>{" "}
