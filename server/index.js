@@ -5,12 +5,28 @@ require("dotenv").config();
 
 const express = require("express");
 const app = express();
-const port = 5172;
+const port = 5173;
+const path = require("path")
 const { MongoClient, ServerApiVersion, Db } = require("mongodb");
 const cors = require("cors");
 const { ObjectId } = require("mongodb");
 app.use(cors());
 const uri = process.env.MONGO_DB_URI;
+
+app.use(express.static(path.join(__dirname, '../client/dist')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+});
+
+app.use((req, res, next) => {
+  if (req.path.includes('.css')) {
+    res.set("Content-Type", "text/css");
+  }
+  next();
+});
+app.use(cors)
+
 
 app.get("/", (req, res) => {
   res.send("Hello World!");

@@ -21,7 +21,7 @@ function SearchComponent() {
 
   const performSearch = async () => {
     const response = await axios.get(
-      `http://localhost:5172/search?term=${searchTerm}`
+      `/api/search?term=${searchTerm}`
     );
     // Check if response.data is an array before setting it to state
     if (Array.isArray(response.data)) {

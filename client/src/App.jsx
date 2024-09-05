@@ -33,7 +33,7 @@ function App() {
   }, [uploadsList]);
   const performSearch = async () => {
     const response = await axios.get(
-      `http://localhost:5172/altsearch?term=${searchTerm}`
+      `/api/altsearch?term=${searchTerm}`
     );
     // Check if response.data is an array before setting it to state
     if (Array.isArray(response.data)) {
