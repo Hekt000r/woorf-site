@@ -18,7 +18,7 @@ function DownloadPage() {
     setProgram({ loading: true });
 
     axios
-      .get(`http://localhost:5172/document/${fullId}`)
+      .get(`/api/document/${fullId}`)
       .then(function (response) {
         setProgram(response.data);
       })
