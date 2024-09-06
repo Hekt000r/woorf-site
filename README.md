@@ -3,6 +3,16 @@
 ### a web application built with the MERN stack and React-Router-Dom
 
 ## A website to find all your favourite freeware software and games, with no ads and instant downloads..
+#Info
+
+### Current offical site:
+server-bzhe.onrender.com
+^^^^^^^^^^^^^^^^^^^^^^^^
+The above URL is the only offical WOORF site, since the project is open source,
+anyone can take the code, create a MongoDB Database, 
+and then replace the links with malware.!
+
+The URL may change from time to time, i will update this readme each time, since it runs on a pay-as-you-go style server, if the project domain's is moved, then when you visit the site, you should no longer be able to use the search feature (thats your way of knowing the url moved)
 
 # Tech Stack
 
