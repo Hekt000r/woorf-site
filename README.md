@@ -4,17 +4,21 @@
 
 ## A website to find all your favourite freeware software and games, with no ads and instant downloads..
 
-# Info
+# Tech Stack
 
-It uses an ExpressJS backend to handle all request and MongoDB stock nodejs driver for interacting with the database
-I`m not entirely sure about using Mongoose, since i've had a ton of fun without it, and i think the freedom to create documents in any shape or form you want, atleast for a application like this where you dont have thousands of documents, is alot better and less prone to errors that take forever to fix
+Frontend
 
-For the frontend i've settled on ReactJS + React Router Dom, and its using the structure from the docs, i dont see it very often but it looks to me as if its the exact same functionality, just less readable, for now ill leave it where it is
+React
 
-I'm using DaisyUI because i really dont want to spend hours writing CSS that doesn't work as i intended. Right now there arent any themes and its just black and white mostly, but im going to add those at the very end since i dont want it to interfere with the actual development
+TailwindCSS: I use it because it allows me to easily create any UI element i want from scratch without headaches, and good documentation, plus style purging.
+DaisyUI: I use it because i dont want to make EVERY single UI element from scratch
 
+axios: HTTP Requests
 
-
+Backend
+NodeJS
+ExpressJS: Feels very fluent and logical to me, from now my go-to backend framework, love the simplicity and light-weight-ness
+MongoDB: Same like ExpressJS, very easy to use, no need for any "local db" which adds another step in deploying to the cloud (Like SQL)
 
 # Features
 
@@ -25,30 +29,8 @@ Search for alternatives to a paid program using our Alternative Search Feature
 No waiting times, instantly get your file when you click download for your platform
 ### (Coming Soon) Game Finder
 
-Find games based on similarity with others, computer hardware with an automated detection tool, or the best browser games...
-
-## Editing the code
-Why are you doing this? My code is messy as hell, but if you want to get started:
-
-First, obviously you are gonna need to setup MongoDB to work with your database instead of mine (changing collection names, etc)
-
-And once all of that is done (10-15 minutes, you also have to create a few dummy documents so you can actually see the data, see index.js for the structure)
-
-you can follow these steps to get it running:
-
-Download zip of the source code
-Extract
-Open in your preferred editor (i use VSCode)
-Then, open a terminal and then do these commands (its required to be run in order):
-`cd client`
-`npm install`
-`cd ..`
-`cd server`
-`npm install`
-This will install all the dependencies quickly
-Now, in the current window run
-`npm start`
-This will start the server, next open a new terminal and then
-`cd client`
-`npm run dev`
+Find games based on similarity with others, computer hardware with an automated detection tool, or an AI-powered engine that allows you to describe a game and then get a result
+## Extra Info
+Development is run using ```npm start``` in server, changing port in vite.config.js to 5173, and running ```npm run dev``` in client
+For production, use ```npm run build``` in client, then move the dist folder to server, and setup Docker with the NodeJS template, and make sure to remove dist from .dockerignore
 
