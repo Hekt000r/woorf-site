@@ -6,7 +6,7 @@ function DownloadPageContent(id) {
     console.log(id)
     useEffect(() => {
       axios
-        .get(`http://localhost:5172/document/${id}`)
+        .get(`/document/${id}`)
         .then(function (response) {
           console.table(response.data)
         })
