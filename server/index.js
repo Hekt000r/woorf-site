@@ -2,7 +2,7 @@ require("dotenv").config();
 
 const express = require("express");
 const app = express();
-const port = 5172;
+const port = 5173;
 const path = require("path");
 const { MongoClient, ServerApiVersion, Db } = require("mongodb");
 const cors = require("cors");
@@ -10,7 +10,6 @@ const { ObjectId } = require("mongodb");
 app.use(cors());
 const uri = process.env.MONGO_DB_URI;
 
-app.use(express.static(path.join(__dirname, "../client/dist")));
 
 // client side routing
 
@@ -20,7 +19,7 @@ module.exports = function (app) {
   app.use(
     "/api",
     createProxyMiddleware({
-      target: "http://localhost:5172", // Your backend server URL
+      target: "http://localhost:5173", // Your backend server URL
       changeOrigin: true,
       pathRewrite: {
         "^/api": "", // remove base path
@@ -29,23 +28,8 @@ module.exports = function (app) {
   );
 };
 
-app.get("/about", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
-});
-app.get("/altsearch", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
-});
 
-app.get("/downloadpage/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
-});
 
-app.use((req, res, next) => {
-  if (req.path.includes(".css")) {
-    res.set("Content-Type", "text/css");
-  }
-  next();
-});
 app.use(cors());
 
 app.listen(port, () => {
