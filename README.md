@@ -42,6 +42,31 @@ No waiting times, instantly get your file when you click download for your platf
 ### (Coming Soon) Game Finder
 
 Find games based on similarity with others, computer hardware with an automated detection tool, or an AI-powered engine that allows you to describe a game and then get a result
+# Updates/ Changelog
+
+Versions are used to track progress of development and changes made to the source code, for users, this means practically nothing
+
+## Production Build Test 1.0
+
+### What's in this version?
+
+The first fully working site, including that has all of the base features:
+
+Search for programs
+Alternative Finder - Find an alternative to a paid program
+
+### What's next?
+
+Development Build 1.1 will introduce the following features:
+
+
+Find programs by category - Click on a category and it will bring you to a page showing all programs matching that category.
+
+
+Game Finder v1.0 - Search for games by simillarity  (no other features, those come later)
+
+
+
 ## Extra Info
 Development is run using ```npm start``` in server, changing port in vite.config.js to 5173, and running ```npm run dev``` in client
 For production, use ```npm run build``` in client, then move the dist folder to server, and setup Docker with the NodeJS template, and make sure to remove dist from .dockerignore
