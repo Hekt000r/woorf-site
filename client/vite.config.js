@@ -8,7 +8,7 @@ export default defineConfig({
     port: 5172,
     proxy: {
       '/api': {
-        target: 'http://localhost:5173', // Dont forget to update this when switching from dev to prod
+        target: 'http://localhost:5172', // Dont forget to update this when switching from dev to prod (5172 = prod, 5173 = dev)
         changeOrigin: true,
         secure: false,
         ws: true,

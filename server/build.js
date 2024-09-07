@@ -1,13 +1,3 @@
-// TODO
-// Finish testing-pre-alpha-build by merging into main branch
-// Requirements:
-// Allow both development and build serving
-
-
-// Index.js -- Development Serve
-// Build.js -- Production Serve
-
-
 require("dotenv").config();
 
 const express = require("express");
@@ -17,20 +7,58 @@ const path = require("path");
 const { MongoClient, ServerApiVersion, Db } = require("mongodb");
 const cors = require("cors");
 const { ObjectId } = require("mongodb");
+const Groq = require("groq-sdk")
+
 app.use(cors());
 const uri = process.env.MONGO_DB_URI;
-
-app.use(express.static(path.join(__dirname, "../client/dist")));
+// ---------------------------------------------------------
+// BUILD ONLY STUFF ! (i forgot this last time, now its a pain to re-do everything)
+app.use(express.static(path.join(__dirname, "/dist")));
 
 // client side routing
 
+
+app.get("/about", (req, res) => {
+  res.sendFile(path.join(__dirname, "/dist/index.html"));
+});
+app.get("/altsearch", (req, res) => {
+  res.sendFile(path.join(__dirname, "/dist/index.html"));
+});
+
+app.get("/downloadpage/", (req, res) => {
+  res.sendFile(path.join(__dirname, "/dist/index.html"));
+});
+app.get("/help/downloadlinks", (req, res) => {
+  res.sendFile(path.join(__dirname, "/dist/index.html"));
+});
+app.get("/about/gamefinder", (req, res) => {
+  res.sendFile(path.join(__dirname, "/dist/index.html"));
+});
+app.get("/gamefinder", (req, res) => {
+  res.sendFile(path.join(__dirname, "/dist/index.html"));
+});
+app.get("/categories", (req, res) => {
+  res.sendFile(path.join(__dirname, "/dist/index.html"));
+});
+
+
+
+
+// end of build only stuff
+// -----------------------------------------------------------
+// AI setup
+const groq = new Groq({apiKey: process.env.API_KEY})
+
+
+
 const { createProxyMiddleware } = require("http-proxy-middleware");
+const { error } = require("console");
 
 module.exports = function (app) {
   app.use(
     "/api",
     createProxyMiddleware({
-      target: "http://localhost:5172", // Your backend server URL
+      target: "http://localhost:5173", // Your backend server URL
       changeOrigin: true,
       pathRewrite: {
         "^/api": "", // remove base path
@@ -39,23 +67,6 @@ module.exports = function (app) {
   );
 };
 
-app.get("/about", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
-});
-app.get("/altsearch", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
-});
-
-app.get("/downloadpage/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
-});
-
-app.use((req, res, next) => {
-  if (req.path.includes(".css")) {
-    res.set("Content-Type", "text/css");
-  }
-  next();
-});
 app.use(cors());
 
 app.listen(port, () => {
@@ -180,7 +191,7 @@ app.get("/api/altsearch", async (req, res) => {
   console.log(results);
   res.json(results);
 });
-app.get("/login", async (req, res) => {
+app.get("/api/login", async (req, res) => {
   // Temporary Authentication, use third party for this later on
 
   const enteredPassword = req.query.password;
@@ -197,6 +208,38 @@ app.get("/login", async (req, res) => {
     console.log(enteredPassword);
   }
 });
+app.get("/api/aiprompt", async (req, res) => {
+  try {
+    const prompt = req.query.prompt;
+    if (!prompt) {
+      throw new Error(`No prompt was provided`);
+    }
+    console.log("everything works till part 1")
+    async function getGroqChatCompletion() {
+      return groq.chat.completions.create({
+        messages: [{
+          role: "user",
+          content: prompt
+        },],
+        model: "llama3-8b-8192"
+      })
+    }
+    let response = "";
+    async function main() {
+      const chatCompletion = await getGroqChatCompletion();
+      res.json(chatCompletion.choices[0]?.message?.content || "");
+      
+    }
+    console.log("time to execute main function")
+    main()
+    console.log("working till now")
+    
+  } catch(error) {
+    console.error(error);
+    res.status(500).json({ error: "An error occurred" });
+  }
+});
+
 app.get("/api/getCategories", async (req, res) => {
   try {
     const udColl = myDB.collection("Unordered Data");
@@ -217,6 +260,34 @@ app.get("/api/getCategories", async (req, res) => {
       i++;
     }
     res.json(categories);
+  } catch (error) {
+    console.error("Failed to get categories:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+app.get("/api/getMarkdown", async (req, res) => {
+  try {
+    const mdName = req.query.name
+    const mdColl = myDB.collection("Markdown");
+    // ignore the comments, they are for the api above
+
+    // TODO: Remove current solution and figure out how to use findOne()
+    let markdown = "";
+    // Debug
+
+    // console.log(udDOCS);
+
+    // Secondary Solution (Temporary)
+    let i = 0;
+    const mdDOCS = await mdColl.find().toArray();
+    while (i < mdDOCS.length) {
+      console.log(mdDOCS[i].Name)
+      if (mdDOCS[i].Name === mdName) {
+        markdown = mdDOCS[i].Markdown;
+      }
+      i++;
+    }
+    res.json(markdown);
   } catch (error) {
     console.error("Failed to get categories:", error);
     res.status(500).json({ message: "Internal server error" });
