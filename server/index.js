@@ -231,6 +231,34 @@ app.get("/api/getCategories", async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
+app.get("/api/getMarkdown", async (req, res) => {
+  try {
+    const mdName = req.query.name
+    const mdColl = myDB.collection("Markdown");
+    // ignore the comments, they are for the api above
+
+    // TODO: Remove current solution and figure out how to use findOne()
+    let markdown = "";
+    // Debug
+
+    // console.log(udDOCS);
+
+    // Secondary Solution (Temporary)
+    let i = 0;
+    const mdDOCS = await mdColl.find().toArray();
+    while (i < mdDOCS.length) {
+      console.log(mdDOCS[i].Name)
+      if (mdDOCS[i].Name === mdName) {
+        markdown = mdDOCS[i].Markdown;
+      }
+      i++;
+    }
+    res.json(markdown);
+  } catch (error) {
+    console.error("Failed to get categories:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 app.get("/api/document/:id", async (req, res) => {
   try {
     const id = req.params.id;

@@ -12,8 +12,12 @@
     .img-sm{
       @apply w-8 object-cover mr-2
     }
+    .markdown h1 {
+      @apply text-4xl relative font-bold pb-1 border-b border-gray-300
+    }
     
   }
 .bup{
     list-style-type: circle;
 }
+
