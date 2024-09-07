@@ -16,6 +16,7 @@ import DownloadLinks from './Components/helppages/DownloadLinks.jsx';
 import AdminPanel from './Components/AdminPanel.jsx';
 import GameFinder from './Components/GameFinder.jsx';
 import AboutGameFinder from './Components/helppages/AboutGameFinder.jsx';
+import Categories from './Components/Categories.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
   {
     path: "/about/GameFinder",
     element: <AboutGameFinder/> ,
+  },
+  {
+    path: "/categories",
+    element: <Categories/> ,
   },
 
 ]);

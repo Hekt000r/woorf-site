@@ -42,6 +42,7 @@ function AltSearchComponent() {
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
+        
           className="input w-64  input-ghost input-bordered max-w-xs bg-white text-black"
         />
         <button className="btn btn-ghost border mb-1" onClick={performSearch}>
