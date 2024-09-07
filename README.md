@@ -27,3 +27,6 @@ Zero ads, instant downloads for Windows, MacOS, and Linux.
 AI Search
 
 Ui improvements
+
+## Offical Site
+The link may change, but i will update it here, as of right now, it's [this link](server-bzhe.onrender.com)
