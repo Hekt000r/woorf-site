@@ -1,4 +1,3 @@
-import React from "react";
 
 function DownloadLinks() {
   return (
@@ -13,7 +12,7 @@ function DownloadLinks() {
            For windows and linux its fairly simple, just pick one of the links, in case of Windows, a portable 7z file or setup
            or in Linux an appimage or tar.gz
            You will need to have a 64bit operating system and for most application Windows 10+.
-           We don't host older downloads for older versions on our site, but at the bottom there are links to official download
+           We don &apos t host older downloads for older versions on our site, but at the bottom there are links to official download
            mirrors which can let you find a older version.
            For MacOS, x86 download links are for Intel macbooks, while the ARM64 ones are for Apple Silicon (M1, M2, M3, etc)
 

@@ -1,6 +1,6 @@
 import "./App.css";
 import axios from "axios";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect} from "react";
 import Logo from "./assets/woorf-logo.svg?react";
 import SearchComponent from "./Components/SearchComponent";
 import { Link } from "react-router-dom";
@@ -24,27 +24,7 @@ function App() {
       console.log(response.data);
     });
   }, []);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [results, setResults] = useState([]);
 
-  const filteredUploadsList = useMemo(() => {
-    return uploadsList.filter(
-      (upload) => upload.category.toLowerCase() === "art and design"
-    );
-  }, [uploadsList]);
-  const performSearch = async () => {
-    const response = await axios.get(`/api/altsearch?term=${searchTerm}`);
-
-    // Check if response.data is an array before setting it to state
-    if (Array.isArray(response.data)) {
-      setResults(response.data);
-      console.log(response.data);
-      console.log(response.data);
-    } else {
-      console.error("Expected an array, received:", response.data);
-      setResults([]); // Fallback to empty array if data is not as expected
-    }
-  };
 
   return (
     <>

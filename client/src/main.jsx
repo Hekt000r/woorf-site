@@ -2,20 +2,20 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
-import * as ReactDOM from "react-dom/client";
 import About from './Components/About.jsx';
 import {
   createBrowserRouter,
   RouterProvider,
-  useParams,
 } from "react-router-dom";
 import Navbar from './Components/Navbar.jsx';
 import Altsearch from './Components/Altsearch.jsx';
 
 import AltSearchComponent from "./Components/AltSearchComponent.jsx";
 import DownloadPage from './Components/DownloadPage.jsx';
-import HelpPage from './Components/helppage.jsx';
+import DownloadLinks from './Components/helppages/DownloadLinks.jsx';
 import AdminPanel from './Components/AdminPanel.jsx';
+import GameFinder from './Components/GameFinder.jsx';
+import AboutGameFinder from './Components/helppages/AboutGameFinder.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -42,12 +42,20 @@ const router = createBrowserRouter([
     element: <DownloadPage /> ,
   },
   {
-    path: "/help/:id",
-    element: <HelpPage/> ,
+    path: "/help/downloadlinks",
+    element: <DownloadLinks/> ,
   },
   {
     path: "/adminpanel",
     element: <AdminPanel/> ,
+  },
+  {
+    path: "/GameFinder",
+    element: <GameFinder/> ,
+  },
+  {
+    path: "/about/GameFinder",
+    element: <AboutGameFinder/> ,
   },
 
 ]);

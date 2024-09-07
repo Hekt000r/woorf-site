@@ -196,8 +196,9 @@ app.get("/api/aiprompt", async (req, res) => {
       res.json(chatCompletion.choices[0]?.message?.content || "");
       
     }
+    console.log("time to execute main function")
     main()
-    console.log(response)
+    console.log("working till now")
     
   } catch(error) {
     console.error(error);
