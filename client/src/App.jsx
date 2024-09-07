@@ -21,7 +21,7 @@ function App() {
   useEffect(() => {
     axios.get("/api/getCategories").then(function (response) {
       setCategories(response.data);
-      console.log(response.data)
+      console.log(response.data);
     });
   }, []);
   const [searchTerm, setSearchTerm] = useState("");
@@ -33,10 +33,8 @@ function App() {
     );
   }, [uploadsList]);
   const performSearch = async () => {
-    const response = await axios.get(
-      `/api/altsearch?term=${searchTerm}`
-    );
-    
+    const response = await axios.get(`/api/altsearch?term=${searchTerm}`);
+
     // Check if response.data is an array before setting it to state
     if (Array.isArray(response.data)) {
       setResults(response.data);
@@ -67,17 +65,21 @@ function App() {
       </div>
       <SearchComponent />
       {categories.map((category, index) => (
-        <div>
+        <div key={index} className="flex flex-col items-center">
           {<h1 className="text-center text-6xl mt-24 mb-4">{category}</h1>}
-          <div className="shadow-md rounded-xl p-4 flex justify-center">
+          <div className="shadow-md rounded-xl p-4 flex justify-center w-max">
             {uploadsList.map((upload, index) =>
               upload.category.toLowerCase() === category.toLowerCase() ? (
                 <>
                   <div
                     key={index}
-                    className="shadow-md rounded-xl h-32 p-1 mr-12 w-72 flex"
+                    className="shadow-md rounded-xl p-3 h-56 line-clamp-2 mr-6 ml-6 w-36  flex flex-col justify-center items-center"
                   >
-                    <img className="h-20 mt-6" src={upload.photoURL} alt="" />
+                    <img
+                      className="mx-auto my-auto h-20 max-w-full"
+                      src={upload.photoURL}
+                      alt=""
+                    />
                     <h1 className="text-xl ml-2 mt-2">
                       {upload.title} <br />
                       <div className="rating rating-xs">
@@ -114,7 +116,6 @@ function App() {
                           disabled
                         />
                       </div>{" "}
-                      
                       <br />
                       <Link
                         className="btn btn-xs btn-primary"
@@ -122,7 +123,6 @@ function App() {
                       >
                         See more
                       </Link>
-                      
                     </h1>
                   </div>
                 </>

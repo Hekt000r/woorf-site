@@ -7,13 +7,18 @@ const path = require("path");
 const { MongoClient, ServerApiVersion, Db } = require("mongodb");
 const cors = require("cors");
 const { ObjectId } = require("mongodb");
+const Groq = require("groq-sdk")
+
 app.use(cors());
 const uri = process.env.MONGO_DB_URI;
 
+// AI setup
+const groq = new Groq({apiKey: process.env.API_KEY})
 
 // client side routing
 
 const { createProxyMiddleware } = require("http-proxy-middleware");
+const { error } = require("console");
 
 module.exports = function (app) {
   app.use(
@@ -27,8 +32,6 @@ module.exports = function (app) {
     })
   );
 };
-
-
 
 app.use(cors());
 
@@ -154,7 +157,7 @@ app.get("/api/altsearch", async (req, res) => {
   console.log(results);
   res.json(results);
 });
-app.get("/login", async (req, res) => {
+app.get("/api/login", async (req, res) => {
   // Temporary Authentication, use third party for this later on
 
   const enteredPassword = req.query.password;
@@ -171,6 +174,37 @@ app.get("/login", async (req, res) => {
     console.log(enteredPassword);
   }
 });
+app.get("/api/aiprompt", async (req, res) => {
+  try {
+    const prompt = req.query.prompt;
+    if (!prompt) {
+      throw new Error(`No prompt was provided`);
+    }
+    console.log("everything works till part 1")
+    async function getGroqChatCompletion() {
+      return groq.chat.completions.create({
+        messages: [{
+          role: "user",
+          content: prompt
+        },],
+        model: "llama3-8b-8192"
+      })
+    }
+    let response = "";
+    async function main() {
+      const chatCompletion = await getGroqChatCompletion();
+      res.json(chatCompletion.choices[0]?.message?.content || "");
+      
+    }
+    main()
+    console.log(response)
+    
+  } catch(error) {
+    console.error(error);
+    res.status(500).json({ error: "An error occurred" });
+  }
+});
+
 app.get("/api/getCategories", async (req, res) => {
   try {
     const udColl = myDB.collection("Unordered Data");
