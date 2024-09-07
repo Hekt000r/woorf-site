@@ -11,6 +11,8 @@ const Groq = require("groq-sdk")
 
 app.use(cors());
 const uri = process.env.MONGO_DB_URI;
+// AI setup
+const groq = new Groq({apiKey: `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`})
 // ---------------------------------------------------------
 // BUILD ONLY STUFF ! (i forgot this last time, now its a pain to re-do everything)
 app.use(express.static(path.join(__dirname, "/dist")));
@@ -46,26 +48,13 @@ app.get("/categories", (req, res) => {
 
 // end of build only stuff
 // -----------------------------------------------------------
-// AI setup
-const groq = new Groq({apiKey: process.env.API_KEY})
 
 
 
-const { createProxyMiddleware } = require("http-proxy-middleware");
+
+
 const { error } = require("console");
 
-module.exports = function (app) {
-  app.use(
-    "/api",
-    createProxyMiddleware({
-      target: "http://localhost:5173", // Your backend server URL
-      changeOrigin: true,
-      pathRewrite: {
-        "^/api": "", // remove base path
-      },
-    })
-  );
-};
 
 app.use(cors());
 
