@@ -1,73 +1,29 @@
-# Woorf Site Code
+# WOORF
+### The free and open source software hub
 
-### a web application built with the MERN stack and React-Router-Dom
-
-## A website to find all your favourite freeware software and games, with no ads and instant downloads..
-#Info
-
-### Current offical site:
-server-bzhe.onrender.com
+A website to find all your favourite freeware software and games, with no ads and instant downloads..
 
 
-^^^^^^^^^^^^^^^^^^^^^^^^
-The above URL is the only offical WOORF site, since the project is open source,
-anyone can take the code, create a MongoDB Database, 
-and then replace the links with malware.!
-
-The URL may change from time to time, i will update this readme each time, since it runs on a pay-as-you-go style server, if the project domain's is moved, then when you visit the site, you should no longer be able to use the search feature (thats your way of knowing the url moved)
-
-# Tech Stack
-
-Frontend
-
-React
-
-TailwindCSS: I use it because it allows me to easily create any UI element i want from scratch without headaches, and good documentation, plus style purging.
-DaisyUI: I use it because i dont want to make EVERY single UI element from scratch
-
-axios: HTTP Requests
-
-Backend
-NodeJS
-ExpressJS: Feels very fluent and logical to me, from now my go-to backend framework, love the simplicity and light-weight-ness
-MongoDB: Same like ExpressJS, very easy to use, no need for any "local db" which adds another step in deploying to the cloud (Like SQL)
 
 # Features
 
-### Alternative Search
+AI Search Engine powered by [Meta's LLAMA 3 8B AI model](https://llama.meta.com/)
 
-Search for alternatives to a paid program using our Alternative Search Feature
-### Fastest instant downloads
-No waiting times, instantly get your file when you click download for your platform
-### (Coming Soon) Game Finder
+Find free alternatives to paid software with Alternative Search
 
-Find games based on similarity with others, computer hardware with an automated detection tool, or an AI-powered engine that allows you to describe a game and then get a result
-# Updates/ Changelog
+Zero ads, instant downloads for Windows, MacOS, and Linux.
 
-Versions are used to track progress of development and changes made to the source code, for users, this means practically nothing
+# Info
 
-## Production Build Test 1.0
+## Tech stack
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white) ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white) ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB) ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white) ![DaisyUI](https://img.shields.io/badge/daisyui-5A0EF8?style=for-the-badge&logo=daisyui&logoColor=white) ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white) ![Render](https://img.shields.io/badge/Render-%46E3B7.svg?style=for-the-badge&logo=render&logoColor=white)
 
-### What's in this version?
+## License
+[![Licence](https://img.shields.io/github/license/Ileriayo/markdown-badges?style=for-the-badge)](./LICENSE)
+<hr>
 
-The first fully working site, including that has all of the base features:
+## Update Log
+### Production Build 1.2
+AI Search
 
-Search for programs
-Alternative Finder - Find an alternative to a paid program
-
-### What's next?
-
-Development Build 1.1 will introduce the following features:
-
-
-Find programs by category - Click on a category and it will bring you to a page showing all programs matching that category.
-
-
-Game Finder v1.0 - Search for games by simillarity  (no other features, those come later)
-
-
-
-## Extra Info
-Development is run using ```npm start``` in server, changing port in vite.config.js to 5173, and running ```npm run dev``` in client
-For production, use ```npm run build``` in client, then move the dist folder to server, and setup Docker with the NodeJS template, and make sure to remove dist from .dockerignore
-
+Ui improvements
