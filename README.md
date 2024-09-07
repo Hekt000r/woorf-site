@@ -29,4 +29,4 @@ AI Search
 Ui improvements
 
 ## Offical Site
-The link may change, but i will update it here, as of right now, it's [this link](https://www.server-bzhe.onrender.com)
+The link may change, but i will update it here, as of right now, it's [this link](https://server-bzhe.onrender.com)
