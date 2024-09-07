@@ -1,9 +1,10 @@
 import "./App.css";
 import axios from "axios";
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import Logo from "./assets/woorf-logo.svg?react";
 import SearchComponent from "./Components/SearchComponent";
 import { Link } from "react-router-dom";
+import { MdOutlineArrowCircleRight } from "react-icons/md";
 function App() {
   const [uploadsList, setUploads] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -25,23 +26,40 @@ function App() {
     });
   }, []);
 
-
   return (
     <>
-      <div className="rounded-lg shadow-lg w-[50%] text-center center mb-12 mt-4">
+      <div className="rounded-lg shadow-lg w-[50%] text-center center mb-12 mt-4 pb-8">
         <h1 className="a text-5xl m-1 flex justify-center">
           <Logo></Logo>
         </h1>
-        All of the best free media, games, and software, including open source
-        in one place! <br />
-        No ads, no wait times, fast hosts, instant downloads, high compression
-        ratios, and portable versions!
-        <br />
-        <a href="/about" className="btn btn-primary">
-          Learn more
-        </a>
-        <br />
-        <b>*Note: The site is in development*</b>
+        <h1 className="text-5xl mt-4 mb-4 font-bold">Welcome to WOORF</h1>
+        <h3 className="text-2xl font-bold">
+          The free and open source software hub, with absoloutely <br /> zero
+          ads, lightning fast downloads, and AI powered search
+        </h3>
+        <div className="flex">
+          <div className=" flex items-center w-64 h-16 text-xl rounded-lg justify-center">
+            <MdOutlineArrowCircleRight className="w-12 h-12" />{" "}
+            <a className="relative inline-block group" href="/gamefinder">
+              AI game finder
+              <span class="absolute bottom-0 left-0 w-0 h-1 bg-current transition-all duration-300 group-hover:w-full"></span>
+            </a>
+          </div>
+          <div className=" flex items-center w-72 h-16 text-xl rounded-lg justify-center">
+            <MdOutlineArrowCircleRight className="w-12 h-12" />{" "}
+            <a className="relative inline-block group" href="/altsearch">
+              Alternative Finder
+              <span class="absolute bottom-0 left-0 w-0 h-1 bg-current transition-all duration-300 group-hover:w-full"></span>
+            </a>
+          </div>
+          <div className=" flex items-center w-64 h-16 text-xl rounded-lg justify-center">
+            <MdOutlineArrowCircleRight className="w-12 h-12" />{" "}
+            <a className="relative inline-block group" href="/altsearch">
+              Browse categories
+              <span class="absolute bottom-0 left-0 w-0 h-1 bg-current transition-all duration-300 group-hover:w-full"></span>
+            </a>
+          </div>
+        </div>
       </div>
       <SearchComponent />
       {categories.map((category, index) => (

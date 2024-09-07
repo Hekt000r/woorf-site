@@ -144,7 +144,7 @@ function DownloadPage() {
         ))}
 
         <div className="flex justify-center mt-12 pl-4 mr-[7rem]">
-          <a href="/help/1" className="btn btn-primary">
+          <a href="/help/downloadlinks" className="btn btn-primary">
             i don't know which download to choose
           </a>
         </div>
