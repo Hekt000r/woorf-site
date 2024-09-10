@@ -43,13 +43,13 @@ function AltSearchComponent() {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         
-          className="input w-64  input-ghost input-bordered max-w-xs bg-white text-black"
+          className="input w-64  input-primary input-bordered max-w-xs  text-black"
         />
         <button className="btn btn-ghost border mb-1" onClick={performSearch}>
           Search
         </button>
 
-        <div className="shadow-md w-80 h-auto rounded-md pb-4 center">
+        <div className=" shadow-md w-80 h-auto rounded-md pb-4 center">
           {results.map((result, index) => (
             <div key={index}>
               {" "}
